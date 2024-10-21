@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
     output.writetofile(system->GetWorkingFolder() + system->OutputFileName());
     cout<<"Getting results into grid"<<endl;
     ResultGrid resgrid(output,"theta",system);
-    cout<<"Writing VTPs"<<endl;
-    resgrid.WriteToVTP("Moisture_content",system->GetWorkingFolder()+"moisture.vtp");
+    //cout<<"Writing VTPs"<<endl;
+    //resgrid.WriteToVTP("Moisture_content",system->GetWorkingFolder()+"moisture.vtp");
 
     return 0;
 

@@ -26,23 +26,24 @@ bool ModelCreator::Create(model_parameters mp, System *system)
     ct.SetName("Constituent_1");
     ct.SetType("Constituent");
     system->AddConstituent(ct,false);
-    system->AddConstituentRelatePropertiestoMetalModel();
-    system->AddConstituentRelateProperties(system->constituent("Tracer"));
 
 
-    //out<<"Reaction"<<endl;
-    //Reaction R1;
-    //R1.SetQuantities(system,"Reaction");
-    //R1.SetName("R1");
-    //R1.SetProperty("Constituent_1:stoichiometric_constant","-1");
-    //system->AddReaction(R1,false);
-
-    //out<<"Reaction_parameter"<<endl;
+    //cout<<"Reaction_parameter"<<endl;
     RxnParameter Rxparam;
     Rxparam.SetQuantities(system,"ReactionParameter");
     Rxparam.SetName("K");
     Rxparam.SetVal("base_value",0.1);
     system->AddReactionParameter(Rxparam, false);
+
+    cout<<"Reaction"<<endl;
+    Reaction R1;
+    R1.SetQuantities(system,"Reaction");
+    R1.SetName("R1");
+    R1.SetProperty("Constituent_1:stoichiometric_constant","-1");
+    R1.SetProperty("rate_expression","K*Constituent_1");
+    system->AddReaction(R1,false);
+
+
 
     //cout<<"Well"<<endl;
     Block well;
@@ -55,6 +56,7 @@ bool ModelCreator::Create(model_parameters mp, System *system)
     well.SetVal("diameter",mp.rw*2);
     well.SetVal("depth",0.5);
     well.SetVal("porosity",1);
+    well.SetVal("Constituent_1:concentration",1);
     well.SetVal("x",-mp.rw*4000);
     well.SetVal("y",0);
     system->AddBlock(well,false);
